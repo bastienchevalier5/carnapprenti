@@ -1,29 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+@section('title','Mon profil')
+
+@section('content')
+    <div class="container mx-auto px-6 py-12">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-5">{{ __('Mon Profil') }}</h1>
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Affichage des informations du profil -->
+            <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-medium text-gray-900">Informations du Profil</h3>
+                <div class="mt-4 text-gray-700">
+                    <p><strong>Nom :</strong> {{ $user->nom }}</p>
+                    <p><strong>Prénom :</strong> {{ $user->prenom }}</p>
+                    <p><strong>Email :</strong> {{ $user->email }}</p>
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
+            <!-- Formulaire de mise à jour des informations -->
+            <div class="bg-white shadow-lg rounded-lg p-6">
+                <h3 class="text-xl font-medium text-gray-900 mb-6">Modifier mes informations</h3>
+                <x-form method="PUT" action="{{ route('profile.update') }}">
+
+                    <x-input label="Nom :" name="nom" :value="$user->nom" />
+                    <x-input label="Prénom :" name="prenom" :value="$user->prenom" />
+                    <x-input label="Email :" name="mail" :value="$user->email" />
+
+                </x-form>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
+            <!-- Bouton de déconnexion -->
+            <div class="bg-white shadow-lg rounded-lg p-6 mt-6">
+                <div class="text-center">
+                    <a href="{{ route('logout') }}" class="btn btn-danger">
+                        <span class="font-medium">{{ __('Se déconnecter') }}</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+@endsection
