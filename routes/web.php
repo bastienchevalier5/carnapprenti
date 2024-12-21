@@ -8,6 +8,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 Route::post('/verify-password', [Controller::class, 'verifyPassword']);
 
+Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
+    return \App\Models\User::all();
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/', [AccueilController::class,'index'])->name('accueil');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/compte-rendu/{id_livret}/{periode?}', [CompteRenduController::class, 'show'])->name('compte_rendu.show');
     Route::post('/compte_rendus/store/{id_livret}/{periode}', [CompteRenduController::class, 'store'])->name('compte_rendus.store');
     Route::put('/compte_rendus/{compteRendu}', [CompteRenduController::class, 'update'])->name('compte_rendus.update');
+    Route::get('/livrets/{livret}/pdf', [LivretController::class, 'generatePdf'])->name('livrets.pdf');
+
 });
 
 require __DIR__.'/auth.php';

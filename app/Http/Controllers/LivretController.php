@@ -6,6 +6,7 @@ use App\Http\Requests\LivretRequest;
 use App\Models\Livret;
 use App\Models\Modele;
 use App\Models\User;
+use App\Services\PdfGenerator;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -137,5 +138,15 @@ class LivretController extends Controller
         $livret->observation_admin = $request['observation_admin'];
         $livret->save();
         return redirect()->route('livret.index')->with('success','Les observations ont bien été enregistrés.');
+    }
+
+    public function generatePdf(Livret $livret)
+    {
+        $modele = $livret->modele;
+
+        $pdfGenerator = new PdfGenerator($livret, $modele);
+        $pdfGenerator->generate();
+
+        return response()->download(storage_path('app/public/livrets/livret-' . $livret->id . '.pdf'));
     }
 }

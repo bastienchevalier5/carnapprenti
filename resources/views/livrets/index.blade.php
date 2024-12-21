@@ -40,7 +40,8 @@
         @endif
         <td><a class="btn btn-secondary" href="{{route('compte_rendu.show',$livret->id)}}">Compte-Rendu</a></td>
         <td><a class="btn btn-secondary" href="{{route('livret.observations_form',$livret->id)}}">Observations globales</a></td>
-        <td><a class="btn btn-primary" href="">PDF</a></td>
+        <td><a href="{{ route('livrets.pdf', $livret) }}" class="btn btn-primary">Télécharger le PDF</a>
+        </td>
         @if (Auth::user()->isAn('referent'))
             <td><a class="btn btn-secondary" href="{{route('livret.edit',$livret->id)}}">Modifier</a>
                 <form method="POST" action="{{route('livret.destroy',$livret->id)}}">
