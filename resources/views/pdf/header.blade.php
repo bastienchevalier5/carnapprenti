@@ -1,5 +1,5 @@
-<div style="color:#3c3feb;">
-    <div style="text-align:center;">
+<div>
+    <div style="text-align:center;color:rgb(60, 63, 235)">
         <h1 style="font-size:40;">{{ $modele->firstPage?->titre ?? 'Livret d\'apprentissage' }}</h1>
         <h2 style="font-size:25;">{{ $modele->groupe->nom }}</h2>
     </div>
