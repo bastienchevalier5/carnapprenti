@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->foreignIdFor(Formateur::class);
+            $table->timestamps();
         });
     }
 

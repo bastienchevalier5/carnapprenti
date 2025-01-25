@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('observation_admin')->nullable();
             $table->string('lien')->nullable();
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Modele::class);
+            $table->foreignIdFor(Modele::class)->nullable();
             $table->timestamps();
         });
     }

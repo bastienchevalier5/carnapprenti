@@ -32,17 +32,24 @@ class NewPasswordController extends Controller
         $request->validate([
             'token' => ['required'],
             'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
+        // Tentative de réinitialisation du mot de passe de l'utilisateur
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
+                // Récupération du mot de passe, avec une valeur par défaut de chaîne vide
+                $password = $request->password ?? ''; // Assurer que c'est une chaîne
+
+                // Vérification que le mot de passe est bien une chaîne
+                if (! is_string($password)) {
+                    $password = ''; // Assurer que c'est une chaîne
+                }
+
+                // Utilisation de Hash::make avec un mot de passe garanti en tant que chaîne
                 $user->forceFill([
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($password),
                     'remember_token' => Str::random(60),
                 ])->save();
 
@@ -50,12 +57,12 @@ class NewPasswordController extends Controller
             }
         );
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+        $statusMessage = is_string($status) ? $status : ''; // Assurer que c'est une chaîne
+
+        // Redirection après réinitialisation du mot de passe
+        return $statusMessage === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($statusMessage)) // Utilisation directe de $status
+            : back()->withInput($request->only('email'))
+                ->withErrors(['email' => __($statusMessage)]);
     }
 }

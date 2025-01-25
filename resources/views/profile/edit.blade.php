@@ -3,6 +3,17 @@
 @section('title','Mon profil')
 
 @section('content')
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
     <div class="container mx-auto px-6 py-12">
         <h1 class="text-3xl font-semibold text-center text-gray-800 mb-5">{{ __('Mon Profil') }}</h1>
 
@@ -23,8 +34,19 @@
                 <x-form method="PUT" action="{{ route('profile.update') }}">
 
                     <x-input label="Nom :" name="nom" :value="$user->nom" />
+                    @error('nom')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
+
                     <x-input label="Prénom :" name="prenom" :value="$user->prenom" />
-                    <x-input label="Email :" name="mail" :value="$user->email" />
+                    @error('prenom')
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                    @enderror
+
+                    <x-input label="Email :" name="email" :value="$user->email" />
+                    @error('email')
+
+                    @enderror
 
                 </x-form>
             </div>

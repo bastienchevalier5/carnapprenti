@@ -45,7 +45,8 @@ class LoginRequest extends FormRequest
 
         $user = User::where('email', $this->input('email'))->first();
 
-        if (!$user || Crypt::decryptString($user->password) !== $this->input('password')) {
+        // Ensure $user and password exist
+        if (!$user || !is_string($user->password) || Crypt::decryptString($user->password) !== $this->input('password')) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -57,7 +58,6 @@ class LoginRequest extends FormRequest
 
         RateLimiter::clear($this->throttleKey());
     }
-
 
     /**
      * Ensure the login request is not rate limited.

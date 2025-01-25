@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
         $tuteur->prenom = "Tuteur";
         $tuteur->email = "tuteur@tuteur.fr";
         $tuteur->password = Crypt::encryptString('tuteur');
-        $tuteur->apprenant_id = 2;
+        $tuteur->apprenant_id = 4;
         $tuteur->save();
 
         Bouncer::assign('tuteur')->to($tuteur);

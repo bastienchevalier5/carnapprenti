@@ -15,7 +15,7 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
 Route::middleware('auth')->group(function () {
     Route::get('/', [AccueilController::class,'index'])->name('accueil');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('livret', LivretController::class);
     Route::get('observations/{livret}',[LivretController::class,'observations_form'])->name('livret.observations_form');
@@ -24,7 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/compte_rendus/store/{id_livret}/{periode}', [CompteRenduController::class, 'store'])->name('compte_rendus.store');
     Route::put('/compte_rendus/{compteRendu}', [CompteRenduController::class, 'update'])->name('compte_rendus.update');
     Route::get('/livrets/{livret}/pdf', [LivretController::class, 'generatePdf'])->name('livrets.pdf');
-
 });
 
 require __DIR__.'/auth.php';

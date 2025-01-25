@@ -21,10 +21,14 @@ class CompteRenduRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules['activites_pros'] = 'nullable|string';
-        $rules['observations_apprenti'] = 'nullable|string';
-        $rules['observations_tuteur'] = 'nullable|string';
-        $rules['observations_referent'] = 'nullable|string';
+        // Explicitly initialize the $rules array
+        $rules = [
+            'activites_pros' => 'nullable|string',
+            'observations_apprenti' => 'nullable|string',
+            'observations_tuteur' => 'nullable|string',
+            'observations_referent' => 'nullable|string',
+        ];
+
         return $rules;
     }
 }

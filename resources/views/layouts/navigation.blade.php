@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('accueil') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <img src="{{ asset('images/carnapprenti-removebg-preview.png') }}" alt="Mon Logo" class="w-50 mt-3">
                     </a>
                 </div>
 

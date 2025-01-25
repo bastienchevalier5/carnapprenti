@@ -14,14 +14,26 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        $user = $request->user();
+
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please log in to verify your email.');
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        // If the email is already verified
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->intended(route('accueil', absolute: false).'?verified=1');
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        // Mark the email as verified
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
+        }
+
+        // Redirect to intended route
+        return redirect()->intended(route('accueil', absolute: false).'?verified=1');
     }
+
+
 }

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/vagrant/code/carnapprenti/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=11.0.7" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=11.0.7" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=11.0.7" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/vagrant/code/carnapprenti/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/PdfGenerator.php.html#17">App\Services\PdfGenerator</a></td><td class="text-right">63%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#12">App\Http\Controllers\ProfileController</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">87%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/PdfGenerator.php.html#17">App\Services\PdfGenerator</a></td><td class="text-right">111</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#12">App\Http\Controllers\ProfileController</a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#10">App\Http\Controllers\Auth\VerifyEmailController</a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#9">App\Http\Controllers\Auth\EmailVerificationNotificationController</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/PdfGenerator.php.html#234"><abbr title="App\Services\PdfGenerator::validateReportField">validateReportField</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#245"><abbr title="App\Services\PdfGenerator::addReports">addReports</abbr></a></td><td class="text-right">7%</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#75"><abbr title="App\Services\PdfGenerator::importAdditionalPdfs">importAdditionalPdfs</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#153"><abbr title="App\Services\PdfGenerator::ColoredTable">ColoredTable</abbr></a></td><td class="text-right">70%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#17"><abbr title="App\Http\Controllers\ProfileController::edit">edit</abbr></a></td><td class="text-right">83%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#161"><abbr title="App\Http\Controllers\LivretController::update">update</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#19"><abbr title="App\Http\Controllers\LivretController::index">index</abbr></a></td><td class="text-right">86%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#33"><abbr title="App\Http\Controllers\ProfileController::update">update</abbr></a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#250"><abbr title="App\Http\Controllers\LivretController::generatePdf">generatePdf</abbr></a></td><td class="text-right">88%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/PdfGenerator.php.html#234"><abbr title="App\Services\PdfGenerator::validateReportField">validateReportField</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#75"><abbr title="App\Services\PdfGenerator::importAdditionalPdfs">importAdditionalPdfs</abbr></a></td><td class="text-right">16</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#245"><abbr title="App\Services\PdfGenerator::addReports">addReports</abbr></a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Services/PdfGenerator.php.html#153"><abbr title="App\Services\PdfGenerator::ColoredTable">ColoredTable</abbr></a></td><td class="text-right">9</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#19"><abbr title="App\Http\Controllers\LivretController::index">index</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#161"><abbr title="App\Http\Controllers\LivretController::update">update</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerifyEmailController.php.html#15"><abbr title="App\Http\Controllers\Auth\VerifyEmailController::__invoke">__invoke</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/EmailVerificationNotificationController.php.html#14"><abbr title="App\Http\Controllers\Auth\EmailVerificationNotificationController::store">store</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#33"><abbr title="App\Http\Controllers\ProfileController::update">update</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/LivretController.php.html#250"><abbr title="App\Http\Controllers\LivretController::generatePdf">generatePdf</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Http/Controllers/ProfileController.php.html#17"><abbr title="App\Http\Controllers\ProfileController::edit">edit</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 11.0.7</a> using <a href="https://www.php.net/" target="_top">PHP 8.3.1</a> and <a href="https://phpunit.de/">PHPUnit 11.4.4</a> at Sat Jan 25 18:57:12 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=11.0.7" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=11.0.7" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=11.0.7" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,1,0,3,2,29], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([1,1,0,0,0,0,0,1,1,7,5,43], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Http\/Controllers\/AccueilController.php.html#9\">App\\Http\\Controllers\\AccueilController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#12\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Auth\/ConfirmablePasswordController.php.html#12\">App\\Http\\Controllers\\Auth\\ConfirmablePasswordController<\/a>"],[85.71428571428571,3,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#9\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#10\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController<\/a>"],[95.83333333333334,5,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#15\">App\\Http\\Controllers\\Auth\\NewPasswordController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Auth\/PasswordController.php.html#11\">App\\Http\\Controllers\\Auth\\PasswordController<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#11\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController<\/a>"],[87.5,4,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#10\">App\\Http\\Controllers\\Auth\\VerifyEmailController<\/a>"],[100,22,"<a href=\"Http\/Controllers\/CompteRenduController.php.html#15\">App\\Http\\Controllers\\CompteRenduController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#8\">App\\Http\\Controllers\\Controller<\/a>"],[100,0,"<a href=\"Http\/Controllers\/GroupeController.php.html#8\">App\\Http\\Controllers\\GroupeController<\/a>"],[91.76470588235294,32,"<a href=\"Http\/Controllers\/LivretController.php.html#13\">App\\Http\\Controllers\\LivretController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/ModeleController.php.html#8\">App\\Http\\Controllers\\ModeleController<\/a>"],[85.71428571428571,5,"<a href=\"Http\/Controllers\/ProfileController.php.html#12\">App\\Http\\Controllers\\ProfileController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/SiteController.php.html#8\">App\\Http\\Controllers\\SiteController<\/a>"],[100,9,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#14\">App\\Http\\Requests\\Auth\\LoginRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/CompteRenduRequest.php.html#7\">App\\Http\\Requests\\CompteRenduRequest<\/a>"],[100,2,"<a href=\"Http\/Requests\/LivretRequest.php.html#7\">App\\Http\\Requests\\LivretRequest<\/a>"],[100,3,"<a href=\"Http\/Requests\/ProfileUpdateRequest.php.html#9\">App\\Http\\Requests\\ProfileUpdateRequest<\/a>"],[100,0,"<a href=\"Models\/Composition.php.html#7\">App\\Models\\Composition<\/a>"],[100,0,"<a href=\"Models\/CompteRendu.php.html#8\">App\\Models\\CompteRendu<\/a>"],[100,0,"<a href=\"Models\/FirstPage.php.html#7\">App\\Models\\FirstPage<\/a>"],[100,0,"<a href=\"Models\/Formateur.php.html#12\">App\\Models\\Formateur<\/a>"],[100,1,"<a href=\"Models\/Groupe.php.html#12\">App\\Models\\Groupe<\/a>"],[100,2,"<a href=\"Models\/Livret.php.html#13\">App\\Models\\Livret<\/a>"],[100,1,"<a href=\"Models\/Matiere.php.html#9\">App\\Models\\Matiere<\/a>"],[100,2,"<a href=\"Models\/Modele.php.html#13\">App\\Models\\Modele<\/a>"],[100,0,"<a href=\"Models\/Personnel.php.html#7\">App\\Models\\Personnel<\/a>"],[100,0,"<a href=\"Models\/Site.php.html#8\">App\\Models\\Site<\/a>"],[100,2,"<a href=\"Models\/User.php.html#31\">App\\Models\\User<\/a>"],[100,2,"<a href=\"Providers\/AppServiceProvider.php.html#7\">App\\Providers\\AppServiceProvider<\/a>"],[63.76146788990825,39,"<a href=\"Services\/PdfGenerator.php.html#17\">App\\Services\\PdfGenerator<\/a>"],[100,1,"<a href=\"View\/Components\/AppLayout.php.html#8\">App\\View\\Components\\AppLayout<\/a>"],[100,1,"<a href=\"View\/Components\/GuestLayout.php.html#8\">App\\View\\Components\\GuestLayout<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Http\/Controllers\/AccueilController.php.html#15\">App\\Http\\Controllers\\AccueilController::index<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#17\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::create<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#25\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/AuthenticatedSessionController.php.html#37\">App\\Http\\Controllers\\Auth\\AuthenticatedSessionController::destroy<\/a>"],[85.71428571428571,3,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationNotificationController.php.html#14\">App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController::store<\/a>"],[100,3,"<a href=\"Http\/Controllers\/Auth\/EmailVerificationPromptController.php.html#15\">App\\Http\\Controllers\\Auth\\EmailVerificationPromptController::__invoke<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#20\">App\\Http\\Controllers\\Auth\\NewPasswordController::create<\/a>"],[95.65217391304348,4,"<a href=\"Http\/Controllers\/Auth\/NewPasswordController.php.html#30\">App\\Http\\Controllers\\Auth\\NewPasswordController::store<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#16\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::create<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Auth\/PasswordResetLinkController.php.html#26\">App\\Http\\Controllers\\Auth\\PasswordResetLinkController::store<\/a>"],[87.5,4,"<a href=\"Http\/Controllers\/Auth\/VerifyEmailController.php.html#15\">App\\Http\\Controllers\\Auth\\VerifyEmailController::__invoke<\/a>"],[100,2,"<a href=\"Http\/Controllers\/CompteRenduController.php.html#23\">App\\Http\\Controllers\\CompteRenduController::show<\/a>"],[100,11,"<a href=\"Http\/Controllers\/CompteRenduController.php.html#49\">App\\Http\\Controllers\\CompteRenduController::store<\/a>"],[100,9,"<a href=\"Http\/Controllers\/CompteRenduController.php.html#97\">App\\Http\\Controllers\\CompteRenduController::update<\/a>"],[86.66666666666667,6,"<a href=\"Http\/Controllers\/LivretController.php.html#19\">App\\Http\\Controllers\\LivretController::index<\/a>"],[92.85714285714286,5,"<a href=\"Http\/Controllers\/LivretController.php.html#57\">App\\Http\\Controllers\\LivretController::create<\/a>"],[100,3,"<a href=\"Http\/Controllers\/LivretController.php.html#95\">App\\Http\\Controllers\\LivretController::store<\/a>"],[92.3076923076923,5,"<a href=\"Http\/Controllers\/LivretController.php.html#121\">App\\Http\\Controllers\\LivretController::edit<\/a>"],[85.71428571428571,5,"<a href=\"Http\/Controllers\/LivretController.php.html#161\">App\\Http\\Controllers\\LivretController::update<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LivretController.php.html#204\">App\\Http\\Controllers\\LivretController::destroy<\/a>"],[100,1,"<a href=\"Http\/Controllers\/LivretController.php.html#215\">App\\Http\\Controllers\\LivretController::observations_form<\/a>"],[100,3,"<a href=\"Http\/Controllers\/LivretController.php.html#225\">App\\Http\\Controllers\\LivretController::observations<\/a>"],[88.88888888888889,3,"<a href=\"Http\/Controllers\/LivretController.php.html#250\">App\\Http\\Controllers\\LivretController::generatePdf<\/a>"],[83.33333333333334,2,"<a href=\"Http\/Controllers\/ProfileController.php.html#17\">App\\Http\\Controllers\\ProfileController::edit<\/a>"],[87.5,3,"<a href=\"Http\/Controllers\/ProfileController.php.html#33\">App\\Http\\Controllers\\ProfileController::update<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#19\">App\\Http\\Requests\\Auth\\LoginRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#29\">App\\Http\\Requests\\Auth\\LoginRequest::rules<\/a>"],[100,4,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#42\">App\\Http\\Requests\\Auth\\LoginRequest::authenticate<\/a>"],[100,2,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#67\">App\\Http\\Requests\\Auth\\LoginRequest::ensureIsNotRateLimited<\/a>"],[100,1,"<a href=\"Http\/Requests\/Auth\/LoginRequest.php.html#88\">App\\Http\\Requests\\Auth\\LoginRequest::throttleKey<\/a>"],[100,1,"<a href=\"Http\/Requests\/CompteRenduRequest.php.html#12\">App\\Http\\Requests\\CompteRenduRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/CompteRenduRequest.php.html#22\">App\\Http\\Requests\\CompteRenduRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/LivretRequest.php.html#12\">App\\Http\\Requests\\LivretRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Requests\/LivretRequest.php.html#22\">App\\Http\\Requests\\LivretRequest::rules<\/a>"],[100,2,"<a href=\"Http\/Requests\/ProfileUpdateRequest.php.html#16\">App\\Http\\Requests\\ProfileUpdateRequest::rules<\/a>"],[100,1,"<a href=\"Http\/Requests\/ProfileUpdateRequest.php.html#39\">App\\Http\\Requests\\ProfileUpdateRequest::messages<\/a>"],[100,1,"<a href=\"Models\/Groupe.php.html#24\">App\\Models\\Groupe::matieres<\/a>"],[100,1,"<a href=\"Models\/Livret.php.html#26\">App\\Models\\Livret::user<\/a>"],[100,1,"<a href=\"Models\/Livret.php.html#37\">App\\Models\\Livret::modele<\/a>"],[100,1,"<a href=\"Models\/Matiere.php.html#20\">App\\Models\\Matiere::groupes<\/a>"],[100,1,"<a href=\"Models\/Modele.php.html#25\">App\\Models\\Modele::groupe<\/a>"],[100,1,"<a href=\"Models\/Modele.php.html#36\">App\\Models\\Modele::site<\/a>"],[100,1,"<a href=\"Models\/User.php.html#67\">App\\Models\\User::casts<\/a>"],[100,1,"<a href=\"Models\/User.php.html#79\">App\\Models\\User::livrets<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#12\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#20\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Services\/PdfGenerator.php.html#22\">App\\Services\\PdfGenerator::__construct<\/a>"],[100,1,"<a href=\"Services\/PdfGenerator.php.html#29\">App\\Services\\PdfGenerator::Footer<\/a>"],[100,2,"<a href=\"Services\/PdfGenerator.php.html#37\">App\\Services\\PdfGenerator::generate<\/a>"],[60.71428571428571,10,"<a href=\"Services\/PdfGenerator.php.html#75\">App\\Services\\PdfGenerator::importAdditionalPdfs<\/a>"],[100,1,"<a href=\"Services\/PdfGenerator.php.html#121\">App\\Services\\PdfGenerator::addDynamicContent<\/a>"],[100,1,"<a href=\"Services\/PdfGenerator.php.html#138\">App\\Services\\PdfGenerator::LoadData<\/a>"],[70.96774193548387,8,"<a href=\"Services\/PdfGenerator.php.html#153\">App\\Services\\PdfGenerator::ColoredTable<\/a>"],[93.33333333333333,2,"<a href=\"Services\/PdfGenerator.php.html#201\">App\\Services\\PdfGenerator::addEquipePedagogique<\/a>"],[0,4,"<a href=\"Services\/PdfGenerator.php.html#234\">App\\Services\\PdfGenerator::validateReportField<\/a>"],[7.4074074074074066,3,"<a href=\"Services\/PdfGenerator.php.html#245\">App\\Services\\PdfGenerator::addReports<\/a>"],[93.33333333333333,6,"<a href=\"Services\/PdfGenerator.php.html#324\">App\\Services\\PdfGenerator::addObservations<\/a>"],[100,1,"<a href=\"View\/Components\/AppLayout.php.html#13\">App\\View\\Components\\AppLayout::render<\/a>"],[100,1,"<a href=\"View\/Components\/GuestLayout.php.html#13\">App\\View\\Components\\GuestLayout::render<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

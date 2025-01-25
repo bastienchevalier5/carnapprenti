@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Crypt;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,17 +19,27 @@ class AuthenticationTest extends TestCase
     }
 
     public function test_users_can_authenticate_using_the_login_screen(): void
-    {
-        $user = User::factory()->create();
+{
+    // Crée un utilisateur avec un mot de passe chiffré
+    $user = User::factory()->create([
+        'password' => Crypt::encryptString('password'), // Mot de passe compatible avec authenticate()
+    ]);
 
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]);
+    // Simule une requête de connexion avec les bonnes informations
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password', // Mot de passe en clair envoyé par l'utilisateur
+    ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
-    }
+    // Vérifie que l'utilisateur est authentifié
+    $this->assertAuthenticated();
+
+    // Vérifie que l'utilisateur est redirigé vers la bonne route
+    $response->assertRedirect(route('accueil', absolute: false));
+}
+
+
+
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {

@@ -21,10 +21,14 @@ class LivretRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules['modele_id'] = "nullable|exists:modeles,id";
-        $rules['apprenant_id'] = "nullable|exists:users,id";
-        $rules['observation_apprenti_global'] = "nullable|string";
-        $rules['observation_admin'] = 'nullable|string';
+        // Explicitly define the rules as an array
+        $rules = [
+            'modele_id' => "nullable",
+            'apprenant_id' => "nullable",
+            'observation_apprenti_global' => "nullable|string",
+            'observation_admin' => 'nullable|string',
+        ];
+
         return $rules;
     }
 }
