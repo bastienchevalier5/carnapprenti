@@ -131,7 +131,7 @@ class CompteRenduControllerTest extends TestCase
         $response = $this->get(route('compte_rendu.show', ['id_livret' => $livret->id]));
 
         // Vérifier que la période générée par défaut est correcte
-        $expectedPeriod = Carbon::now()->format('F Y') . ' - ' . Carbon::now()->addMonth()->format('F Y');
+        $expectedPeriod = Carbon::now()->translatedFormat('F Y') . ' - ' . Carbon::now()->addMonth()->translatedFormat('F Y');
         $response->assertViewHas('periode', $expectedPeriod);
     }
 

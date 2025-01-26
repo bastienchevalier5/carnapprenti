@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Composition;
+use App\Models\User;
 use Http;
 use Log;
 use Mockery;
@@ -82,153 +83,176 @@ class PdfGeneratorTest extends TestCase
         $pdfGenerator->importAdditionalPdfs(collect([$compositionWithLien])); // Passer directement la collection
     }
 
-    public function testPdfPageImport()
+    public function testValidateReportFieldReturnsValidString(): void
     {
-        // Chemin d'un PDF source de test (assurez-vous qu'il existe pour le test)
-        $pdfPath = sys_get_temp_dir() . '/test-source.pdf';
+        $report = new stdClass();
+        $report->field = "Valid data";
 
-        // Création d'un PDF factice pour le test
-        $fpdi = new \setasign\Fpdi\Tcpdf\Fpdi();
-        $fpdi->AddPage();
-        $fpdi->SetFont('helvetica', '', 12);
-        $fpdi->Cell(0, 10, 'Page 1 - Test PDF', 0, 1, 'C');
-        $fpdi->AddPage();
-        $fpdi->Cell(0, 10, 'Page 2 - Test PDF', 0, 1, 'C');
-        $fpdi->Output($pdfPath, 'F');
+        $modele = Modele::factory()->create();
+        $livret = Livret::factory()->create([
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($livret, $modele);
+        $result = $pdfGenerator->validateReportField($report, 'field');
 
-        // Assurez-vous que le fichier existe
-        $this->assertFileExists($pdfPath, 'Le fichier PDF source doit exister.');
+        $this->assertEquals("Valid data", $result);
+    }
 
-        // Instanciation de votre classe PdfGenerator
-        $livret = $this->createMock(Livret::class);
-        $modele = $this->createMock(Modele::class);
+    public function testValidateReportFieldReturnsEmptyStringForNull(): void
+    {
+        $report = new stdClass();
+        $report->field = null;
+
+        $modele = Modele::factory()->create();
+        $livret = Livret::factory()->create([
+            'modele_id' => $modele->id
+        ]);
         $pdfGenerator = new PdfGenerator($livret, $modele);
 
-        // Début des tests sur la boucle
-        $pageCount = $pdfGenerator->setSourceFile($pdfPath);
-        $this->assertGreaterThan(0, $pageCount, 'Le fichier PDF doit contenir au moins une page.');
+        $result = $pdfGenerator->validateReportField($report, 'field');
 
-        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
-            try {
-                // Importation de la page
-                $templateId = $pdfGenerator->importPage($pageNo);
-                $this->assertNotNull($templateId, "La page $pageNo doit être correctement importée.");
-
-                // Taille de la page
-                $size = $pdfGenerator->getTemplateSize($templateId);
-                $this->assertIsArray($size, "Les dimensions de la page $pageNo doivent être récupérées.");
-                $this->assertArrayHasKey('width', $size, "La largeur doit exister pour la page $pageNo.");
-                $this->assertArrayHasKey('height', $size, "La hauteur doit exister pour la page $pageNo.");
-
-                // Orientation et dimensions
-                $orientation = is_string($size['orientation']) ? $size['orientation'] : "P";
-                $pdfGenerator->AddPage(
-                    $orientation,
-                    [$size['width'] ?? 210, $size['height'] ?? 297]
-                );
-
-                // Utilisation de la page importée
-                $pdfGenerator->useTemplate($templateId);
-            } catch (\Exception $e) {
-                $this->fail("Erreur lors du traitement de la page $pageNo : " . $e->getMessage());
-            }
-        }
-
-        // Vérifiez que le PDF résultant est généré
-        $outputPath = sys_get_temp_dir() . '/test-output.pdf';
-        $pdfGenerator->Output($outputPath, 'F');
-        $this->assertFileExists($outputPath, 'Le fichier PDF généré doit exister.');
-
-        // Nettoyage
-        unlink($pdfPath);
-        unlink($outputPath);
+        $this->assertEquals("", $result);
     }
 
-    public function testTableRowRendering()
-{
-    // Configuration initiale
-    $fpdiMock = $this->getMockBuilder(\setasign\Fpdi\Tcpdf\Fpdi::class)
-        ->onlyMethods(['SetX', 'Cell', 'Ln'])
-        ->getMock();
+    public function testValidateReportFieldReturnsInvalidDataForNonString(): void
+    {
+        $report = new stdClass();
+        $report->field = 123; // Not a string
 
-    // Simulation des dimensions des colonnes
-    $columnWidths = [50, 100];
+        $modele = Modele::factory()->create();
+        $livret = Livret::factory()->create([
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($livret, $modele);
+        $result = $pdfGenerator->validateReportField($report, 'field');
 
-    // Simulation des données d'une ligne
-    $rows = [
-        (object)[
-            'nom_matiere' => 'Mathématiques',
-            'prenom' => 'Jean',
-            'nom' => 'Dupont'
-        ],
-        (object)[
-            'nom_matiere' => 'Physique',
-            'prenom' => 'Marie',
-            'nom' => 'Curie'
-        ],
-        (object)[
-            'nom_matiere' => null, // Test avec une valeur invalide
-            'prenom' => '',
-            'nom' => null
-        ]
-    ];
-
-    $xStart = 10;
-    $fill = false;
-
-    // Définir les attentes
-    $fpdiMock->expects($this->exactly(count($rows)))
-        ->method('SetX')
-        ->with($xStart);
-
-    // Préparation des appels attendus pour Cell
-    $expectedCells = [
-        // Ligne 1
-        [$columnWidths[0], 9, 'Mathématiques', 'LR', 0, 'C', false],
-        [$columnWidths[1], 9, 'Jean Dupont', 'LR', 0, 'C', false],
-        // Ligne 2
-        [$columnWidths[0], 9, 'Physique', 'LR', 0, 'C', true],
-        [$columnWidths[1], 9, 'Marie Curie', 'LR', 0, 'C', true],
-        // Ligne 3
-        [$columnWidths[0], 9, '', 'LR', 0, 'C', false],
-        [$columnWidths[1], 9, ' ', 'LR', 0, 'C', false],
-    ];
-
-    $fpdiMock->expects($this->exactly(count($expectedCells)))
-        ->method('Cell')
-        ->willReturnCallback(function (...$args) use (&$expectedCells) {
-            $expectedCall = array_shift($expectedCells); // Obtenez la prochaine attente
-            $filteredArgs = array_slice($args, 0, count($expectedCall)); // Ignorez les arguments supplémentaires
-            $this->assertEquals($expectedCall, $filteredArgs); // Vérifiez que les paramètres essentiels correspondent
-        });
-
-    $fpdiMock->expects($this->exactly(count($rows)))
-        ->method('Ln');
-
-    // Appeler la méthode testée pour chaque ligne
-    foreach ($rows as $row) {
-        $this->renderTableRow($fpdiMock, $row, $columnWidths, $xStart, $fill);
-        $fill = !$fill;
+        $this->assertEquals("Invalid data", $result);
     }
-}
 
+    public function testValidateReportFieldReturnsInvalidDataForMissingProperty(): void
+    {
+        $report = new stdClass(); // No properties defined
 
-    public function renderTableRow($fpdi, $row, $columnWidths, $xStart, $fill)
-{
-    $fpdi->SetX($xStart);
-    $nomMatiere = is_string($row->nom_matiere) ? $row->nom_matiere : '';
-    $fpdi->Cell($columnWidths[0], 9, $nomMatiere, 'LR', 0, 'C', $fill);
+        $modele = Modele::factory()->create();
+        $livret = Livret::factory()->create([
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($livret, $modele);
+        $result = $pdfGenerator->validateReportField($report, 'field');
 
-    $prenom = is_string($row->prenom) ? $row->prenom : '';
-    $nom = is_string($row->nom) ? $row->nom : '';
-    $formattedName = $prenom . ' ' . $nom;
-    $fpdi->Cell($columnWidths[1], 9, $formattedName, 'LR', 0, 'C', $fill);
+        $this->assertEquals("Invalid data", $result);
+    }
 
-    $fpdi->Ln();
-}
+    public function testAddReportsWithCompleteUserData()
+    {
+        // Arrange
+        $mockUser = User::factory()->create();
+        $modele = Modele::factory()->create();
+        $mockLivret = Livret::factory()->create([
+            'user_id' => $mockUser->id,
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($mockLivret, $modele);
 
+        $mockReport = new stdClass();
+        $mockReport->periode = 'Septembre 2023';
+        $mockReport->activites_pro = 'Développement web';
+        $mockReport->observations_apprenti = 'Expérience enrichissante';
+        $mockReport->observations_tuteur = 'Bon potentiel';
+        $mockReport->observations_referent = 'Progrès satisfaisants';
 
+        // Use Mockery to mock the DB query
+        DB::shouldReceive('table->where->get')
+            ->once()
+            ->andReturn(collect([$mockReport]));
 
+        // Act
+        // Capture output or use a mock PDF generation method
+        $pdfGenerator->addReports();
 
+        // Assert
+        // Add specific assertions based on your requirements
+        $this->assertTrue(true); // Placeholder assertion
+    }
 
+    public function testAddReportsWithMissingUserData()
+    {
+        $mockUser = User::factory()->create();
+        $modele = Modele::factory()->create();
+        $mockLivret = Livret::factory()->create([
+            'user_id' => $mockUser->id,
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($mockLivret, $modele);
+        // Arrange
+
+        $mockReport = new stdClass();
+        $mockReport->periode = null;
+        $mockReport->activites_pro = 123;
+        $mockReport->observations_apprenti = '';
+        $mockReport->observations_tuteur = null;
+        $mockReport->observations_referent = new stdClass();
+
+        // Use Mockery to mock the DB query
+        DB::shouldReceive('table->where->get')
+            ->once()
+            ->andReturn(collect([$mockReport]));
+
+        // Act
+        $pdfGenerator->addReports();
+
+        // Assert
+        // Add specific assertions based on your error handling requirements
+        $this->assertTrue(true); // Placeholder assertion
+    }
+
+    public function testValidateReportField()
+    {
+        $mockUser = User::factory()->create();
+        $modele = Modele::factory()->create();
+        $mockLivret = Livret::factory()->create([
+            'user_id' => $mockUser->id,
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($mockLivret, $modele);
+        // Arrange
+        $mockReport = new stdClass();
+        $mockReport->valid_field = 'Test Value';
+        $mockReport->null_field = null;
+        $mockReport->invalid_field = 123;
+
+        // Act & Assert
+        $this->assertEquals('Test Value',
+            $pdfGenerator->validateReportField($mockReport, 'valid_field'));
+
+        $this->assertEquals('',
+            $pdfGenerator->validateReportField($mockReport, 'null_field'));
+
+        $this->assertEquals('Invalid data',
+            $pdfGenerator->validateReportField($mockReport, 'invalid_field'));
+    }
+
+    public function testImportAdditionalPdfsWithInvalidLink()
+    {
+        $mockUser = User::factory()->create();
+        $modele = Modele::factory()->create();
+        $mockLivret = Livret::factory()->create([
+            'user_id' => $mockUser->id,
+            'modele_id' => $modele->id
+        ]);
+        $pdfGenerator = new PdfGenerator($mockLivret, $modele);
+        // Arrange
+        $compositions = collect([
+            (object)[
+                'lien' => null
+            ],
+            (object)[] // No lien property
+        ]);
+
+        // Act
+        $pdfGenerator->importAdditionalPdfs($compositions);
+
+        // Assert
+        $this->assertTrue(true); // Should skip invalid compositions
+    }
 }

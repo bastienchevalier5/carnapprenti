@@ -9,12 +9,13 @@
                 <nav class="bg-light p-3 rounded">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('compte_rendu.show', ['id_livret' => $livret->id, 'periode' => Carbon\Carbon::now()->format('F Y') . ' - ' . Carbon\Carbon::now()->addMonth()->format('F Y') ]) }}">
-                                {{ Carbon\Carbon::now()->format('F Y') . ' - ' . Carbon\Carbon::now()->addMonth()->format('F Y') }}
+                            <a class="nav-link" href="{{ route('compte_rendu.show', ['id_livret' => $livret->id, 'periode' => now()->translatedFormat('F Y') . ' - ' . now()->addMonth()->translatedFormat('F Y') ]) }}">
+                                {{ now()->translatedFormat('F Y') . ' - ' . now()->addMonth()->translatedFormat('F Y') }}
                             </a>
+
                         </li>
                         @foreach($periodes as $p)
-                            @if($p->periode !== Carbon\Carbon::now()->format('F Y') . ' - ' . Carbon\Carbon::now()->addMonth()->format('F Y'))
+                            @if($p->periode !== Carbon\Carbon::now()->translatedFormat('F Y') . ' - ' . Carbon\Carbon::now()->addMonth()->translatedFormat('F Y'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('compte_rendu.show', ['id_livret' => $livret->id, 'periode' => $p->periode]) }}">
                                         {{ $p->periode }}

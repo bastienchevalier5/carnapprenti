@@ -27,7 +27,7 @@ class CompteRenduController extends Controller
 
         // Définir la période si elle n'est pas fournie
         if (is_null($periode)) {
-            $periode = Carbon::now()->format('F Y') . ' - ' . Carbon::now()->addMonth()->format('F Y');
+            $periode = Carbon::now()->translatedFormat('F Y') . ' - ' . Carbon::now()->addMonth()->translatedFormat('F Y');
         }
 
         // Récupérer le compte rendu pour cette période
@@ -78,6 +78,8 @@ class CompteRenduController extends Controller
 
         // Handle the referent's observations if the user is a referent
         if ($user && $user->isAn('referent')) {
+            $observationsTuteur = $request->input('observations_tuteur');
+            $compteRendu->observations_tuteur = is_string($observationsTuteur) ? $observationsTuteur : '';
             $observationsReferent = $request->input('observations_referent');
             $compteRendu->observations_referent = is_string($observationsReferent) ? $observationsReferent : '';
         }
@@ -115,6 +117,8 @@ class CompteRenduController extends Controller
 
         if ($user && $user->isAn('referent')) {
             // Ensure that observations_referent is a valid string or fallback to an empty string if null
+            $observationsTuteur = $request->input('observations_tuteur');
+            $compteRendu->observations_tuteur = is_string($observationsTuteur) ? $observationsTuteur : '';
             $observationsReferent = $request->input('observations_referent');
             $compteRendu->observations_referent = is_string($observationsReferent) ? $observationsReferent : '';
         }
