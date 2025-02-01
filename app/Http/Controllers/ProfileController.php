@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Crypt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,8 +41,10 @@ class ProfileController extends Controller
 
         $user->fill($request->validated());
 
+        $user->password = Crypt::encryptString($request->mdp);
+
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', __('Profile modifié avec succès'));
+        return redirect()->route('profile.edit')->with('success', __('Profil modifié avec succès'));
     }
 }
