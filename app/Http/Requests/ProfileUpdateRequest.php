@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -28,6 +29,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($userId), // Use $userId safely here
             ],
+            'mdp' => ['required', Password::defaults()],
+            'mdpConfirm' => ['required', Password::defaults(), 'same:mdp']
         ];
     }
 
@@ -42,6 +45,9 @@ class ProfileUpdateRequest extends FormRequest
             'email.required' => 'L\'email est obligatoire.',
             'email.email' => 'L\'email doit être dans un format valide.',
             'email.unique' => 'Cet email est déjà utilisé.',
+            'mdp.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'mdpConfirm.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'mdpConfirm.same' => 'Les mots de passes ne correspondent pas.',
         ];
     }
 

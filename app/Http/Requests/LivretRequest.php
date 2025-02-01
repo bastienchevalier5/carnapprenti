@@ -26,7 +26,6 @@ class LivretRequest extends FormRequest
             'modele_id' => "nullable",
             'apprenant_id' => "nullable",
             'observation_apprenti_global' => "nullable|string",
-            'observation_admin' => 'nullable|string',
         ];
 
         return $rules;

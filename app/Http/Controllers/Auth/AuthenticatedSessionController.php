@@ -7,7 +7,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Log;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,11 +26,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        try {
+            $request->authenticate();
 
-        $request->session()->regenerate();
+            $request->session()->regenerate();
 
-        return redirect()->intended(route('accueil', absolute: false));
+            return redirect()->intended(route('accueil', absolute: false));
+        } catch (ValidationException $e) {
+            // Ajouter une entrée dans les logs pour une tentative échouée
+            Log::warning('Tentative de connexion échouée.', [
+                'email' => $request->input('email'),
+                'ip' => $request->ip(),
+            ]);
+
+            throw $e; // Rejeter l'erreur pour que le système continue à fonctionner normalement
+        }
     }
 
     /**

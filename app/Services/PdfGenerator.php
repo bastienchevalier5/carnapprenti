@@ -65,7 +65,7 @@ class PdfGenerator extends Fpdi
     }
 
     // Chemin relatif pour le fichier PDF
-    $filePath = $directory . '/livret-' . $this->livret->id . '.pdf';
+    $filePath = $directory . '/livret_' . $this->livret->user->nom . '_' . $this->livret->user->prenom . '.pdf';
 
     // Génération et enregistrement du fichier PDF
     $fullPath = Storage::disk('public')->path($filePath);

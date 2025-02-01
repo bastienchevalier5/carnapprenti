@@ -43,11 +43,11 @@
         <td><a href="{{ route('livrets.pdf', $livret) }}" class="btn btn-primary">Télécharger le PDF</a>
         </td>
         @if (Auth::user()->isAn('referent'))
-            <td><a class="btn btn-secondary" href="{{route('livret.edit',$livret->id)}}">Modifier</a>
+            <td><a class="btn btn-secondary m-1" href="{{route('livret.edit',$livret->id)}}">Modifier</a>
                 <form method="POST" action="{{route('livret.destroy',$livret->id)}}">
                     @csrf
                     @method('DELETE')
-                    <button onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livret?')" class="btn btn-danger" type="submit">Supprimer</button>
+                    <button onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livret?')" class="btn btn-danger m-1" type="submit">Supprimer</button>
                 </form>
             </td>
         @endif

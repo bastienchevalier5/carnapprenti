@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 mt-5">
                 <nav class="bg-light p-3 rounded">
                     <ul class="nav flex-column">
                         <li class="nav-item">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-md-9">
-                <a href="{{ route('livret.index') }}" class="btn btn-primary mb-3">Retour</a>
+                <a class="btn btn-secondary m-3" href="{{route('livret.index')}}">← Retour</a>
                 <div class="card">
                     <div class="card-header">
                         <h3>Compte-rendu pour la période : {{ $periode }}</h3>

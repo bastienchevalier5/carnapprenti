@@ -40,12 +40,8 @@ class ProfileController extends Controller
 
         $user->fill($request->validated());
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', __('Profile modified successfully.'));
+        return redirect()->route('profile.edit')->with('success', __('Profile modifié avec succès'));
     }
 }

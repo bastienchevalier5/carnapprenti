@@ -229,10 +229,6 @@ class LivretController extends Controller
             ? strval($request->input('observation_apprenti_global'))
             : null;
 
-        $livret->observation_admin = is_scalar($request->input('observation_admin'))
-            ? strval($request->input('observation_admin'))
-            : null;
-
         // Sauvegarde les modifications
         $livret->save();
 
@@ -264,7 +260,7 @@ class LivretController extends Controller
     $pdfGenerator->generate();
 
     // Définir le chemin du fichier PDF généré
-    $filePath = storage_path('app/public/livrets/livret-' . $livret->id . '.pdf');
+    $filePath = storage_path('app/public/livrets/livret_' . $livret->user->nom . '_' . $livret->user->prenom . '.pdf');
 
     // Vérifier si le fichier a bien été généré
     if (!file_exists($filePath)) {

@@ -33,20 +33,27 @@
                 <h3 class="text-xl font-medium text-gray-900 mb-6">Modifier mes informations</h3>
                 <x-form method="PUT" action="{{ route('profile.update') }}">
 
-                    <x-input label="Nom :" name="nom" :value="$user->nom" />
-                    @error('nom')
-                        <p class="text-red-500 text-sm">{{ $message }}</p>
-                    @enderror
+                    @if (!Auth::user()->isAn('apprenant'))
+                        <x-input label="Nom :" name="nom" :value="$user->nom" />
+                        @error('nom')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                        @enderror
 
-                    <x-input label="Prénom :" name="prenom" :value="$user->prenom" />
-                    @error('prenom')
-                        <p class="text-red-500 text-sm">{{ $message }}</p>
-                    @enderror
+                        <x-input label="Prénom :" name="prenom" :value="$user->prenom" />
+                        @error('prenom')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                        @enderror
 
-                    <x-input label="Email :" name="email" :value="$user->email" />
-                    @error('email')
+                        <x-input label="Email :" type="email" name="email" :value="$user->email" />
+                        @error('email')
+
+                        @enderror
+                    @endif
+                    <x-input label="Nouveau mot de passe :" type="password" name="mdp" />
+                    @error('mdp')
 
                     @enderror
+                    <x-input label="Confirmation du mot de passe :" type="password" name="mdpConfirm" />
 
                 </x-form>
             </div>
