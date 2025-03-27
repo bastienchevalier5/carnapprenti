@@ -77,10 +77,16 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden text-center">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('accueil')" :active="request()->routeIs('accueil')">
-                {{ __('accueil') }}
+                {{ __('Accueil') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('accueil')">
+                {{ __('Mon Profil') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('livret.index')" :active="request()->routeIs('accueil')">
+                {{Auth::user()->isAn('apprenant') ? "Mon livret" : "Liste des livrets"}}
             </x-responsive-nav-link>
         </div>
 
