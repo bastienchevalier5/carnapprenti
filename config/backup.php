@@ -116,7 +116,6 @@ return [
         'database_dump_file_extension' => '',
 
         'destination' => [
-
             /*
              * The compression algorithm to be used for creating the zip archive.
              *

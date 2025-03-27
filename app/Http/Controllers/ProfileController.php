@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Crypt;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -40,9 +41,7 @@ class ProfileController extends Controller
         }
 
         $user->fill($request->validated());
-
         $user->password = Crypt::encryptString($request->mdp);
-
         $user->save();
 
         return redirect()->route('profile.edit')->with('success', __('Profil modifié avec succès'));

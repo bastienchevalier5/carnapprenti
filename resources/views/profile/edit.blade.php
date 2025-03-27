@@ -61,10 +61,8 @@
             <!-- Bouton de déconnexion -->
             <div class="bg-white shadow-lg rounded-lg p-6 mt-6">
                 <div class="text-center">
-
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <a href="{{route('logout')}}" class="btn btn-danger" onclick="event.preventDefault();this.closest('form').submit();">
                             Se déconnecter
                         </a>

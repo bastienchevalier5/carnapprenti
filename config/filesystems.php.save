@@ -29,21 +29,7 @@ return [
     */
 
     'disks' => [
-	'backups' => [
-        	'driver' => 'local',
-        	'root' => storage_path('app/backups'),
-    	],
-
-    	'ftp' => [
-        	'driver'   => 'ftp',
-		'host' => 'localhost',
-		'username' => 'ftpuser',
-		'password' => 'Not24get',
-        	'root'     => '/ftp/files/',
-		'passive' => true,
-		'ssl' => false, // Dossier où se trouvent les fichiers PDF
-    	],
-
+	
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
@@ -69,11 +55,6 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
-        ],
-
-        'backups' => [
-        'driver' => 'local',
-        'root' => storage_path('app/backups'),
         ],
 
     ],

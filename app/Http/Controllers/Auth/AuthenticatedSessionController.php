@@ -26,36 +26,34 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
 
-public function store(LoginRequest $request): RedirectResponse
-{
-    try {
-        $request->authenticate();
-        $user = auth()->user(); // Récupérer l'utilisateur authentifié
+    public function store(LoginRequest $request): RedirectResponse
+    {
+    	try {
+        	$request->authenticate();
+        	$user = auth()->user(); // Récupérer l'utilisateur authentifié
 
-        // Vérifier si l'utilisateur a un rôle interdit
-        if ($user->isAn('admin') || $user->isAn('qualite')) {
-            auth()->logout(); // Déconnexion immédiate
+        	// Vérifier si l'utilisateur a un rôle interdit
+        	if ($user->isAn('admin') || $user->isAn('qualite')) {
+            		auth()->logout(); // Déconnexion immédiate
 
-            throw ValidationException::withMessages([
-                'email' => 'Votre compte ne vous permet pas de vous connecter.',
-            ]);
-        }
+            		throw ValidationException::withMessages([
+                		'email' => 'Votre compte ne vous permet pas de vous connecter.',
+            		]);
+        	}
 
-        $request->session()->regenerate();
+        	$request->session()->regenerate();
 
-        return redirect()->intended(route('accueil', absolute: false));
-    } catch (ValidationException $e) {
-        // Loguer la tentative de connexion échouée
-        Log::warning('Tentative de connexion échouée.', [
-            'email' => $request->input('email'),
-            'ip' => $request->ip(),
-        ]);
+        	return redirect()->intended(route('accueil', absolute: false));
+    	} catch (ValidationException $e) {
+        	// Loguer la tentative de connexion échouée
+        	Log::warning('Tentative de connexion échouée.', [
+            		'email' => $request->input('email'),
+            		'ip' => $request->ip(),
+        	]);
 
-        throw $e; // Laisser l'exception être gérée normalement
-    }
-}
-
-
+        	throw $e; // Laisser l'exception être gérée normalement
+    	}
+  }
 
     /**
      * Destroy an authenticated session.

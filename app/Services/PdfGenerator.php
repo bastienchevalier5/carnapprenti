@@ -72,7 +72,7 @@ class PdfGenerator extends Fpdi
     $this->Output($fullPath, 'F');
     }
 
-    public function importAdditionalPdfs(Collection $pdfCompositions = null): void
+    /**public function importAdditionalPdfs(Collection $pdfCompositions = null): void
     {
         if ($pdfCompositions === null) {
             $pdfCompositions = DB::table('compositions')
@@ -81,13 +81,17 @@ class PdfGenerator extends Fpdi
             }
 
         foreach ($pdfCompositions as $composition) {
-            if (!isset($composition->lien)) {
-                continue;
-            }
-            $compositionLien = is_string($composition->lien) ? $composition->lien : "";
+    if (!isset($composition->lien) || empty($composition->lien)) {
+        \Log::error("Le champ 'lien' est vide ou inexistant pour la composition ID: {$composition->id}");
+        continue;
+    }
 
-            $url = 'https://raw.githubusercontent.com/bastienchevalier5/CarnApprenti-Administration/master/CarnApprenti/wwwroot/' . $compositionLien;
-            $response = Http::get($url);
+    $compositionLien = is_string($composition->lien) ? $composition->lien : "";
+
+    // Remplace l'URL GitHub par l'URL FTP
+    $url = "https://raw.githubusercontent.com/bastienchevalier5/CarnApprenti-Administration/master/CarnApprenti/wwwroot/" . $compositionLien;
+    $response = Http::get($url);
+    
 
             if ($response->successful()) {
                 $pdfContent = $response->body();
@@ -115,9 +119,65 @@ class PdfGenerator extends Fpdi
             } else {
                 Log::error('Failed to download PDF from GitHub: ' . $response->status());
             }
-        }
+	}
+        }**/
+
+    public function importAdditionalPdfs(Collection $pdfCompositions = null): void
+{
+    if ($pdfCompositions === null) {
+        $pdfCompositions = DB::table('compositions')
+            ->where('modele_id', $this->modele->id)
+            ->get();
     }
 
+    foreach ($pdfCompositions as $composition) {
+        if (!isset($composition->lien)) {
+            continue;
+        }
+
+        $compositionLien = is_string($composition->lien) ? $composition->lien : "";
+        $ftpFilePath = $compositionLien; // Chemin sur le serveur FTP
+        $localFilePath = storage_path('app/public/' . $compositionLien); // Emplacement local
+
+        try {
+            // Récupérer le fichier depuis le FTP
+            $ftpDisk = Storage::disk('ftp');
+            if ($ftpDisk->exists($ftpFilePath)) {
+                $pdfContent = $ftpDisk->get($ftpFilePath);
+                file_put_contents($localFilePath, $pdfContent);
+
+                // Traiter le fichier PDF
+                $this->processPdf($localFilePath);
+            } else {
+                Log::error("Le fichier $ftpFilePath n'existe pas sur le serveur FTP.");
+            }
+        } catch (\Exception $e) {
+            Log::error("Erreur lors du téléchargement FTP : " . $e->getMessage());
+        }
+    }
+}
+
+private function processPdf(string $filePath)
+{
+    try {
+        $pageCount = $this->setSourceFile($filePath);
+        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+            $templateId = $this->importPage($pageNo);
+            $size = $this->getTemplateSize($templateId);
+
+            if (is_array($size)) {
+                $orientation = is_string($size['orientation']) ? $size['orientation'] : "P";
+                $this->AddPage(
+                    $orientation,
+                    [$size['width'] ?? 210, $size['height'] ?? 297]
+                );
+                $this->useTemplate($templateId);
+            }
+        }
+    } catch (\Exception $e) {
+        Log::error('Erreur lors du traitement du fichier PDF : ' . $e->getMessage());
+    }
+}
     public function addDynamicContent(): void
     {
         $this->AddPage();
