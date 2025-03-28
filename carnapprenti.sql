@@ -215,6 +215,33 @@ LOCK TABLES `failed_jobs` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `entreprises`
+--
+
+DROP TABLE IF EXISTS `entreprises`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entreprises` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adresse` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telephone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entreprises`
+--
+
+LOCK TABLES `entreprises` WRITE;
+/*!40000 ALTER TABLE `entreprises` DISABLE KEYS */;
+/*!40000 ALTER TABLE `entreprises` ENABLE KEYS */;
+UNLOCK TABLES;
+--
 -- Table structure for table `first_pages`
 --
 
